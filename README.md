@@ -4,6 +4,20 @@ Simple script to add specific ImageDescription EXIF tag to images, based on data
 
 It was made to speedup upload process to my <a href="https://flickr.com/photos/bodzio">flickr account</a>, and was inspired by Minolta Data Memory Card. 
 
+## Installation
+
+    pip install git+https://github.com/bohdanbobrowski/mdmc2exif
+
+## Usage
+
+Run command in directory where images and required **data.csv** file is stored:
+
+    mdmc2exif
+
+Or with optional parameter **--safe-mode**, which disables writing:
+
+    mdmc2exif --safe-mode
+
 ## What the hell is Minolta Data Memory Card?
 
 It is already quite obsolete accessory for the first Minolta Dynax cameras. These cameras allowed the use of cards extending their functions, and one of them was "Minolta Data Memory Card" - which allowed to record:
