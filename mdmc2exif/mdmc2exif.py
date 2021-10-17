@@ -50,5 +50,11 @@ class MinoltaDataMemoryCardToEXIF(object):
         recipe = "Foma Fomadon Excel stock for 13min. (20C)"
         return recipe
 
-if __name__ == "__main__":
+
+def main():
+    print("MinoltaDataMemoryCardToEXIF")
     MinoltaDataMemoryCardToEXIF()
+
+
+if __name__ == "__main__":
+    main()

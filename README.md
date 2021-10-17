@@ -31,9 +31,22 @@ Based on: https://exiftool.org/TagNames/EXIF.html
     AgfaPhoto APX 400 @ 1600
     Foma Fomadon Excel stock for 13min. (20C)
 
-## Required csv structure example:
+## Required csv structure:
 
+CSV can contain 4 types of data, and it's declared by first column value: 
+
+1. "camera" - camera manufacturer, and model type
+2. "film" - film manufacturer and type
+3. "recipe" - recipe used to develop this film
+4. pictures metadata:
+    
+
+    [file name], [shutter speed], [aperture value], [exposure compensation], [focal length], [maximum aperture], [lens manufacturer and model]
+
+
+### Example:
+
+    camera,Minolta Dynax 7xi
     film,AgfaPhoto APX 400 @ 1600
     recipe,Foma Fomadon Excel stock for 13min. (20C)
-    camera,Minolta Dynax 7xi
     36.jpg,1500,4,0.0,210,4,Minolta AF ZOOM 70-210mm f4 (32)
