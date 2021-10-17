@@ -1,6 +1,6 @@
 # Minolta Data Memory Card to EXIF
 
-Simple script to add specific ImageDescription EXIF tag to images, based on data stored in csv file.
+Simple script to add specific ImageDescription EXIF tag to images, based on data stored in csv file. 
 
 It was made to speedup upload process to my <a href="https://flickr.com/photos/bodzio">flickr account</a>, and was inspired by Minolta Data Memory Card. 
 
@@ -27,7 +27,7 @@ It is already quite obsolete accessory for the first Minolta Dynax cameras. Thes
 - lens focal length (for zoom lenses - actual value), 
 - maximum aperture value (at this focal length).
 
-And it stored maximum those values for maximum 40 pictures (usually, one 35mm film casette can store 36 pictures). So total capacity of this card was around 1 Kilobyte.
+Card stores those values for maximum 40 pictures (usually, one 35mm film casette can keep 36 pictures). So total capacity of this card was around 1 Kilobyte.
 
 The card itself looks like this:
 
@@ -37,7 +37,7 @@ The card itself looks like this:
 
 Based on: https://exiftool.org/TagNames/EXIF.html
 
-## ImageDescription example:
+## Example of ImageDescription created by this script:
 
     Minolta Dynax 7xi
     AF ZOOM 35-105mm f3.5-4.5 (22)
