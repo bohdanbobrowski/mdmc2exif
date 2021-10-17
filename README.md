@@ -2,7 +2,7 @@
 
 Simple script to add specific ImageDescription EXIF tag to images, based on data stored in csv file.
 
-It was made to speedup upload process to my <a href="https://flick.com/photos/bodzio">flick account</a>, and was inspired by Minolta Data Memory Card. 
+It was made to speedup upload process to my <a href="https://flickr.com/photos/bodzio">flickr account</a>, and was inspired by Minolta Data Memory Card. 
 
 ## What the hell is Minolta Data Memory Card?
 
