@@ -32,20 +32,20 @@ class MinoltaDataMemoryCardToEXIF(object):
             if file.lower().endswith(('.jpg', '.jpeg')):
                 exif_dict = piexif.load(file)
                 exif_dict['0th'][piexif.ImageIFD.ImageDescription] = self.get_image_description(file)
-                print("\033[1m" + file + "\033[0m")
+                print("\033[1m[" + file + "]\033[0m")
                 print(self.get_image_description(file))
                 if not self.safe_mode:
                     exif_bytes = piexif.dump(exif_dict)
-                    # piexif.insert(exif_bytes, file)
+                    piexif.insert(exif_bytes, file)
+                else:
+                    print("(safe mode)")
 
     def get_image_description(self, file):
-        return "{}{}{}{}{}".format(
-            self.get_csv_value("camera"),
-            self.get_lens(file),
-            self.get_exposure_data(file),
-            self.get_csv_value("film"),
-            self.get_csv_value("recipe")
-        )
+        return self.get_csv_value("camera") + \
+            self.get_lens(file) + \
+            self.get_exposure_data(file) + \
+            self.get_csv_value("film") + \
+            self.get_csv_value("recipe").strip()
 
     def get_csv_value(self, label):
         val = self.csv_data.get(label, "")
@@ -55,9 +55,9 @@ class MinoltaDataMemoryCardToEXIF(object):
 
     def get_lens(self, file):
         exposure_data = self.csv_data.get(file, "")
-        if exposure_data and len(exposure_data) >= 5 and exposure_data[5]:
-            lens = "{}\n".format(exposure_data[5])
-        return lens
+        if exposure_data and len(exposure_data)>=5 and exposure_data[5]:
+            return "{}\n".format(exposure_data[5])
+        return ""
 
     def get_exposure_data(self, file):
         exposure_data = self.csv_data.get(file, "")
