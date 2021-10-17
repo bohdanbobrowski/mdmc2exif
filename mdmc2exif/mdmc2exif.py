@@ -40,23 +40,23 @@ class MinoltaDataMemoryCardToEXIF(object):
 
     def get_image_description(self, file):
         return "{}{}{}{}{}".format(
-            self.get_camera(),
+            self.get_csv_value("camera"),
             self.get_lens(file),
             self.get_exposure_data(file),
-            self.get_film(),
-            self.get_recipe()
+            self.get_csv_value("film"),
+            self.get_csv_value("recipe")
         )
 
-    def get_camera(self):
-        camera = self.csv_data.get("camera", "")
-        if camera and camera[0]:
-            camera = "{}\n".format(camera[0])
-        return camera
+    def get_csv_value(self, label):
+        val = self.csv_data.get(label, "")
+        if val and len(val) > 0 and val[0]:
+            val = "{}\n".format(val[0])
+        return val
 
     def get_lens(self, file):
-        lens = self.csv_data.get("lens", "")
-        if lens and lens[0]:
-            lens = "{}\n".format(lens[0])
+        exposure_data = self.csv_data.get(file, "")
+        if exposure_data and len(exposure_data) >= 5 and exposure_data[5]:
+            lens = "{}\n".format(exposure_data[5])
         return lens
 
     def get_exposure_data(self, file):
@@ -69,18 +69,6 @@ class MinoltaDataMemoryCardToEXIF(object):
                 exposure_data[3]
             )
         return exposure_data
-
-    def get_film(self):
-        film = self.csv_data.get("film", "")
-        if film and film[0]:
-            film = "{}\n".format(film[0])
-        return film
-
-    def get_recipe(self):
-        recipe = self.csv_data.get("recipe", "")
-        if recipe and recipe[0]:
-            recipe = "{}\n".format(recipe[0])
-        return recipe
 
 
 def main():
