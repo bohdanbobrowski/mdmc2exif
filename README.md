@@ -1,8 +1,14 @@
-# Miinolta Data Card to EXIF
+# Minolta Data Memory Card to EXIF
 
 Simple script to add  ImageDescription EXIF tag to images, based on data store in csv file.
 
+## 
+
 <img src="minolta_data_memory_card.gif" />
+
+## Documentation used
+
+Based on: https://exiftool.org/TagNames/EXIF.html
 
 ## ImageDescription example:
 
