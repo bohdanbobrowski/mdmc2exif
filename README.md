@@ -13,7 +13,7 @@ It is already quite obsolete accessory for the first Minolta Dynax cameras. Thes
 - lens focal length (for zoom lenses - actual value), 
 - maximum aperture value (at this focal length).
 
-In my opinion total capacity was around 1 Kilobyte.
+And it stored maximum those values for maximum 40 pictures (usually, one 35mm film casette can store 36 pictures). So total capacity of this card was around 1 Kilobyte.
 
 The card itself looks like this:
 
