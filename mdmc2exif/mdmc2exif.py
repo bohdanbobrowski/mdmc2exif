@@ -18,8 +18,8 @@ class MinoltaDataMemoryCardToEXIF(object):
                 exif_dict = piexif.load(file)
                 exif_dict['0th'][piexif.ImageIFD.ImageDescription] = self.get_image_description(file)
                 print(self.get_image_description(file))
-                exif_bytes = piexif.dump(exif_dict)
-                piexif.insert(exif_bytes, file)
+                # exif_bytes = piexif.dump(exif_dict)
+                # piexif.insert(exif_bytes, file)
 
     def get_image_description(self, file):
         return "{}\n{}\n{}\n{}\n{}".format(
