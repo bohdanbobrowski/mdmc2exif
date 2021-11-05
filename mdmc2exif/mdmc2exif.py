@@ -55,20 +55,26 @@ class MinoltaDataMemoryCardToEXIF(object):
 
     def get_lens(self, file):
         exposure_data = self.csv_data.get(file, "")
-        if exposure_data and len(exposure_data)>=5 and exposure_data[5]:
+        if exposure_data and len(exposure_data) >= 5 and exposure_data[5]:
             return "{}\n".format(exposure_data[5])
         return ""
 
     def get_exposure_data(self, file):
-        exposure_data = self.csv_data.get(file, "")
-        if exposure_data and len(exposure_data) >= 4:
-            exposure_data = "Minolta Data Card (1/{}s, f{}, {}, {}mm)\n".format(
-                exposure_data[0],
-                exposure_data[1],
-                exposure_data[2],
-                exposure_data[3]
-            )
-        return exposure_data
+        data = self.csv_data.get(file, "")
+        exposure_data = []
+        if data:
+            if data[0]:
+                exposure_data.append("1/{}s".format(data[0]))
+            if data[1]:
+                exposure_data.append("f{}".format(data[1]))
+            if data[2]:
+                exposure_data.append("{}".format(data[2]))
+            if data[3]:
+                exposure_data.append("{}mm".format(data[3]))
+        if exposure_data:
+            return "Minolta Data Card ({})\n".format(", ".join(exposure_data))
+        else:
+            return ""
 
 
 def main():
