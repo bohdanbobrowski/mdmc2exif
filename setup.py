@@ -12,15 +12,13 @@ setup(
     author="Bohdan Bobrowski",
     author_email="bohdanbobrowski@gmail.com",
     license="MIT",
-    packages=[
-        "mdmc2exif"
-    ],
+    packages=["mdmc2exif"],
     install_requires=[
         "piexif",
     ],
     entry_points={
-        'console_scripts': [
-            'mdmc2exif = mdmc2exif.mdmc2exif:main',
+        "console_scripts": [
+            "mdmc2exif = mdmc2exif.mdmc2exif:main",
         ]
     },
 )

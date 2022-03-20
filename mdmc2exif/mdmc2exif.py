@@ -8,7 +8,7 @@ import sys
 
 
 class MinoltaDataMemoryCardToEXIF(object):
-    """ Simple script to add  ImageDescription EXIF tag to images, based on data store in csv file."""
+    """Simple script to add  ImageDescription EXIF tag to images, based on data store in csv file."""
 
     def __init__(self):
         if "--safe-mode" in sys.argv:
@@ -21,17 +21,19 @@ class MinoltaDataMemoryCardToEXIF(object):
 
     def _read_csv(self):
         csv_data = {}
-        with open('data.csv', newline='') as csvfile:
-            csv_data_reader = csv.reader(csvfile, delimiter=',')
+        with open("data.csv", newline="") as csvfile:
+            csv_data_reader = csv.reader(csvfile, delimiter=",")
             for row in csv_data_reader:
                 csv_data[row[0].lower()] = row[1:]
         return csv_data
 
     def tag_files(self):
         for file in self.files:
-            if file.lower().endswith(('.jpg', '.jpeg')):
+            if file.lower().endswith((".jpg", ".jpeg")):
                 exif_dict = piexif.load(file)
-                exif_dict['0th'][piexif.ImageIFD.ImageDescription] = self.get_image_description(file)
+                exif_dict["0th"][
+                    piexif.ImageIFD.ImageDescription
+                ] = self.get_image_description(file)
                 print("\033[1m[" + file + "]\033[0m")
                 print(self.get_image_description(file))
                 if not self.safe_mode:
@@ -41,11 +43,13 @@ class MinoltaDataMemoryCardToEXIF(object):
                     print("(safe mode)")
 
     def get_image_description(self, file):
-        return self.get_csv_value("camera") + \
-            self.get_lens(file) + \
-            self.get_exposure_data(file) + \
-            self.get_csv_value("film") + \
-            self.get_csv_value("recipe").strip()
+        return (
+            self.get_csv_value("camera")
+            + self.get_lens(file)
+            + self.get_exposure_data(file)
+            + self.get_csv_value("film")
+            + self.get_csv_value("recipe").strip()
+        )
 
     def get_csv_value(self, label):
         val = self.csv_data.get(label, "")
