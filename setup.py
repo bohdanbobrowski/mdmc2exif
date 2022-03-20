@@ -6,7 +6,7 @@ from setuptools import setup
 
 setup(
     name='mdmc2exif',
-    version='1.1',
+    version='1.2',
     description=u'Simple script to add specific ImageDescription EXIF tag to images, based on data stored in csv file.',
     url="https://github.com/bohdanbobrowski/mdmc2exif",
     author="Bohdan Bobrowski",

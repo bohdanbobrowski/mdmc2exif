@@ -71,6 +71,8 @@ class MinoltaDataMemoryCardToEXIF(object):
                 exposure_data.append("{}".format(data[2]))
             if data[3]:
                 exposure_data.append("{}mm".format(data[3]))
+            if data[4]:
+                exposure_data.append("program '{}'".format(data[4].upper()))
         if exposure_data:
             return "Minolta Data Card ({})\n".format(", ".join(exposure_data))
         else:

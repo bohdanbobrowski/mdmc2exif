@@ -41,7 +41,7 @@ Based on: https://exiftool.org/TagNames/EXIF.html
 
     Minolta Dynax 7xi
     AF ZOOM 35-105mm f3.5-4.5 (22)
-    Minolta Data Card (1/180s, f22, 0.0, 35mm)
+    Minolta Data Card (1/180s, f22, 0.0, 35mm, program A)
     AgfaPhoto APX 400 @ 1600
     Foma Fomadon Excel stock for 13min. (20C)
 
@@ -55,7 +55,7 @@ CSV can contain 4 types of data, and it's declared by first column value:
 4. pictures metadata:
     
 
-    [file name], [shutter speed], [aperture value], [exposure compensation], [focal length], [maximum aperture], [lens manufacturer and model]
+    [file name], [shutter speed], [aperture value], [exposure compensation], [focal length], [maximum aperture], [lens manufacturer and model], [program]
 
 
 ### Example:
@@ -63,4 +63,4 @@ CSV can contain 4 types of data, and it's declared by first column value:
     camera,Minolta Dynax 7xi
     film,AgfaPhoto APX 400 @ 1600
     recipe,Foma Fomadon Excel stock for 13min. (20C)
-    36.jpg,1500,4,0.0,210,4,Minolta AF ZOOM 70-210mm f4 (32)
+    36.jpg,1500,4,0.0,210,4,Minolta AF ZOOM 70-210mm f4 (32),P
