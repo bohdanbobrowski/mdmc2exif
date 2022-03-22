@@ -67,15 +67,15 @@ class MinoltaDataMemoryCardToEXIF(object):
         data = self.csv_data.get(file, "")
         exposure_data = []
         if data:
-            if data[0]:
+            if len(data) > 0 and data[0]:
                 exposure_data.append("1/{}s".format(data[0]))
-            if data[1]:
+            if len(data) > 1 and data[1]:
                 exposure_data.append("f{}".format(data[1]))
-            if data[2]:
+            if len(data) > 2 and data[2]:
                 exposure_data.append("{}".format(data[2]))
-            if data[3]:
+            if len(data) > 3 and data[3]:
                 exposure_data.append("{}mm".format(data[3]))
-            if data[6]:
+            if len(data) > 6 and data[6]:
                 exposure_data.append("program '{}'".format(data[6].upper()))
         if exposure_data:
             return "Minolta Data Card ({})\n".format(", ".join(exposure_data))
