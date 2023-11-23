@@ -2,11 +2,11 @@
 # -*- coding : utf-8 -*-
 
 from setuptools import setup
-
+from mdmc2exif.mdmc2exif import VERSION
 
 setup(
     name="mdmc2exif",
-    version="1.2.3",
+    version=VERSION,
     description="Simple script to add specific ImageDescription EXIF tag to images, based on data stored in csv file.",
     url="https://github.com/bohdanbobrowski/mdmc2exif",
     author="Bohdan Bobrowski",

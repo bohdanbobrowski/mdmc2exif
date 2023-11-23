@@ -6,18 +6,33 @@ import csv
 import os
 import sys
 
+VERSION = "1.2.4"
 
 class MinoltaDataMemoryCardToEXIF(object):
     """Simple script to add  ImageDescription EXIF tag to images, based on data store in csv file."""
 
     def __init__(self):
-        if "--safe-mode" in sys.argv:
+        self._print_version()
+        if "--version" in sys.argv:
+            pass
+        elif "--dry-run" in sys.argv:
             self.safe_mode = True
-        else:
+            self.files = os.listdir()
+            self.csv_data = self._read_csv()
+            self.tag_files()
+        elif "--save" in sys.argv:
             self.safe_mode = False
-        self.files = os.listdir()
-        self.csv_data = self._read_csv()
-        self.tag_files()
+            self.files = os.listdir()
+            self.csv_data = self._read_csv()
+            self.tag_files()
+        else:
+            print("--help")
+            print("--version")
+            print("--dry-run")
+            print("--save")
+
+    def _print_version(self):
+        print(f"Minolta Data Memory Card To EXIF v.{VERSION}")
 
     def _read_csv(self):
         csv_data = {}
@@ -45,8 +60,8 @@ class MinoltaDataMemoryCardToEXIF(object):
     def get_image_description(self, file):
         return (
             self.get_csv_value("camera")
-            + self.get_lens(file)
-            + self.get_exposure_data(file)
+            + self.get_lens(file.lower())
+            + self.get_exposure_data(file.lower())
             + self.get_csv_value("film")
             + self.get_csv_value("recipe").strip()
         )

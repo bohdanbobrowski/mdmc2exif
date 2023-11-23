@@ -12,11 +12,11 @@ It was made to speedup upload process to my <a href="https://flickr.com/photos/b
 
 Run command in directory where images and required **data.csv** file is stored:
 
-    mdmc2exif
+    mdmc2exif --save
 
-Or with optional parameter **--safe-mode**, which disables writing:
+Or with optional parameter **--dry-run**, which disables writing:
 
-    mdmc2exif --safe-mode
+    mdmc2exif --dry-run
 
 ## What the hell is Minolta Data Memory Card?
 
@@ -64,3 +64,9 @@ CSV can contain 4 types of data, and it's declared by first column value:
     film,AgfaPhoto APX 400 @ 1600
     recipe,Foma Fomadon Excel stock for 13min. (20C)
     36.jpg,1500,4,0.0,210,4,Minolta AF ZOOM 70-210mm f4 (32),P
+
+### Plans:
+
+- [ ] add csv generator
+- [ ] image title and tags which will be compatible with flickr uploader
+- [ ] GUI??
