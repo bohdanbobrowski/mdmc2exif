@@ -39,7 +39,10 @@ class MinoltaDataMemoryCardToEXIF(object):
         with open("data.csv", newline="") as csvfile:
             csv_data_reader = csv.reader(csvfile, delimiter=",")
             for row in csv_data_reader:
-                csv_data[row[0].lower()] = row[1:]
+                try:
+                    csv_data[row[0].lower()] = row[1:]
+                except IndexError:
+                    pass
         return csv_data
 
     def tag_files(self):
