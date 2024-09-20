@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding : utf-8 -*-
 
-import piexif
 import csv
+import importlib.metadata
 import os
 import sys
+from fnmatch import filter
 
-VERSION = "1.2.4"
+import piexif
+
+VERSION = importlib.metadata.version('mdmc2exif')
 
 class MinoltaDataMemoryCardToEXIF(object):
     """Simple script to add  ImageDescription EXIF tag to images, based on data store in csv file."""
@@ -17,19 +20,23 @@ class MinoltaDataMemoryCardToEXIF(object):
             pass
         elif "--dry-run" in sys.argv:
             self.safe_mode = True
-            self.files = os.listdir()
+            self.files = self._get_files()
             self.csv_data = self._read_csv()
             self.tag_files()
         elif "--save" in sys.argv:
             self.safe_mode = False
-            self.files = os.listdir()
+            self.files = self._get_files()
             self.csv_data = self._read_csv()
             self.tag_files()
+        elif "--create" in sys.argv:
+            self.files = self._get_files()
+            self.create_empty_csv()
         else:
             print("--help")
             print("--version")
             print("--dry-run")
             print("--save")
+            print("--create")
 
     def _print_version(self):
         print(f"Minolta Data Memory Card To EXIF v.{VERSION}")
@@ -44,6 +51,11 @@ class MinoltaDataMemoryCardToEXIF(object):
                 except IndexError:
                     pass
         return csv_data
+
+    def _get_files(self):
+        files = os.listdir()
+        sorted(files)
+        return filter(files, '*.[Jj][Pp][Gg]')
 
     def tag_files(self):
         for file in self.files:
@@ -99,6 +111,22 @@ class MinoltaDataMemoryCardToEXIF(object):
             return "Minolta Data Card ({})\n".format(", ".join(exposure_data))
         else:
             return ""
+
+    def create_empty_csv(self):
+        if not os.path.isfile("data.csv"):
+            file_content = """camera,...\n"""
+            file_content += """film,...\n"""
+            file_content += """recipe,...\n"""
+            file_content += """,shutter speed,aperture value,exposure compensation,focal length,maximum aperture,lens manufacturer and model,program\n"""
+            for image_file in self.files:
+                file_content += f"{image_file},,,,,,,\n"
+            print("blank data.csv created:")
+            print(file_content)
+            with open("data.csv", "w") as f:
+                f.write(file_content)
+                print("...and saved.")
+        else:
+            print("data.csv file exist")
 
 
 def main():

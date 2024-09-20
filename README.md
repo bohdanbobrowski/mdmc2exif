@@ -10,13 +10,17 @@ It was made to speedup upload process to my <a href="https://flickr.com/photos/b
 
 ## Usage
 
-Run command in directory where images and required **data.csv** file is stored:
+Run command in directory to create empty **data.csv** file if such does not exist:
 
-    mdmc2exif --save
+    mdmc2exif --create
 
-Or with optional parameter **--dry-run**, which disables writing:
+Once when csv file is created and filled with proper and valid data (might be tricky), run to test: 
 
     mdmc2exif --dry-run
+
+...and for save:
+
+    mdmc2exif --save
 
 ## What the hell is Minolta Data Memory Card?
 
@@ -67,6 +71,4 @@ CSV can contain 4 types of data, and it's declared by first column value:
 
 ### Plans:
 
-- [ ] add csv generator
 - [ ] image title and tags which will be compatible with flickr uploader
-- [ ] GUI??
