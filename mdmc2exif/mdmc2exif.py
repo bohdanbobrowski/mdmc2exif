@@ -4,7 +4,6 @@ import argparse
 import csv
 import importlib.metadata
 import os
-import sys
 from fnmatch import filter
 
 import piexif  # type: ignore
