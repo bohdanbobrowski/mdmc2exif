@@ -1,45 +1,44 @@
 #!/usr/bin/env python3
 # -*- coding : utf-8 -*-
-
+import argparse
 import csv
 import importlib.metadata
 import os
 import sys
 from fnmatch import filter
 
-import piexif
+import piexif  # type: ignore
 
-VERSION = importlib.metadata.version('mdmc2exif')
+VERSION = importlib.metadata.version("mdmc2exif")
+
 
 class MinoltaDataMemoryCardToEXIF(object):
-    """Simple script to add  ImageDescription EXIF tag to images, based on data store in csv file."""
+    """Simple script to add ImageDescription EXIF tag to images, based on data store in csv file."""
 
     def __init__(self):
-        self._print_version()
-        if "--version" in sys.argv:
-            pass
-        elif "--dry-run" in sys.argv:
+        parser = argparse.ArgumentParser(
+            prog="mdmc2exif",
+            description=f"Minolta Data Memory Card To EXIF v.{VERSION}",
+        )
+        parser.add_argument("-d", "--dry-run", action="store_true")
+        parser.add_argument("-s", "--save", action="store_true")
+        parser.add_argument("-c", "--create", action="store_true")
+        args = parser.parse_args()
+        if args.dry_run:
             self.safe_mode = True
             self.files = self._get_files()
             self.csv_data = self._read_csv()
             self.tag_files()
-        elif "--save" in sys.argv:
+        elif args.create:
+            self.files = self._get_files()
+            self.create_empty_csv()
+        elif args.save:
             self.safe_mode = False
             self.files = self._get_files()
             self.csv_data = self._read_csv()
             self.tag_files()
-        elif "--create" in sys.argv:
-            self.files = self._get_files()
-            self.create_empty_csv()
         else:
-            print("--help")
-            print("--version")
-            print("--dry-run")
-            print("--save")
-            print("--create")
-
-    def _print_version(self):
-        print(f"Minolta Data Memory Card To EXIF v.{VERSION}")
+            parser.print_help()
 
     def _read_csv(self):
         csv_data = {}
@@ -55,15 +54,15 @@ class MinoltaDataMemoryCardToEXIF(object):
     def _get_files(self):
         files = os.listdir()
         sorted(files)
-        return filter(files, '*.[Jj][Pp][Gg]')
+        return filter(files, "*.[Jj][Pp][Gg]")
 
     def tag_files(self):
         for file in self.files:
             if file.lower().endswith((".jpg", ".jpeg")):
                 exif_dict = piexif.load(file)
-                exif_dict["0th"][
-                    piexif.ImageIFD.ImageDescription
-                ] = self.get_image_description(file)
+                exif_dict["0th"][piexif.ImageIFD.ImageDescription] = (
+                    self.get_image_description(file)
+                )
                 print("\033[1m[" + file + "]\033[0m")
                 print(self.get_image_description(file))
                 if not self.safe_mode:
@@ -114,9 +113,9 @@ class MinoltaDataMemoryCardToEXIF(object):
 
     def create_empty_csv(self):
         if not os.path.isfile("data.csv"):
-            file_content = """camera,...\n"""
-            file_content += """film,...\n"""
-            file_content += """recipe,...\n"""
+            file_content = """camera,Camera Model\n"""
+            file_content += """film,Film brand and type\n"""
+            file_content += """recipe,Development recipe\n"""
             file_content += """,shutter speed,aperture value,exposure compensation,focal length,maximum aperture,lens manufacturer and model,program\n"""
             for image_file in self.files:
                 file_content += f"{image_file},,,,,,,\n"
