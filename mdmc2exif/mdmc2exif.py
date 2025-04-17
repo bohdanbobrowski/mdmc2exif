@@ -11,7 +11,7 @@ import piexif  # type: ignore
 VERSION = importlib.metadata.version("mdmc2exif")
 
 
-class MinoltaDataMemoryCardToEXIF(object):
+class MinoltaDataMemoryCardToEXIF:
     """Simple script to add ImageDescription EXIF tag to images, based on data store in csv file."""
 
     def __init__(self):
@@ -64,8 +64,22 @@ class MinoltaDataMemoryCardToEXIF(object):
                 )
                 print("\033[1m[" + file + "]\033[0m")
                 print(self.get_image_description(file))
+                tags_to_delete = [
+                    # 50721,
+                    # 50722,
+                    # 50740,
+                    # 50727,
+                    50728,  # AnalogBalance - this caused error, why? IDK!
+                ]
                 if not self.safe_mode:
+                    if "0th" in exif_dict:
+                        for t in tags_to_delete:
+                            if t in exif_dict["0th"]:
+                                del exif_dict["0th"][t]
+                    # from pprint import pprint
+                    # pprint(exif_dict)
                     exif_bytes = piexif.dump(exif_dict)
+                    # exit()
                     piexif.insert(exif_bytes, file)
                 else:
                     print("(safe mode)")
@@ -82,13 +96,13 @@ class MinoltaDataMemoryCardToEXIF(object):
     def get_csv_value(self, label):
         val = self.csv_data.get(label, "")
         if val and len(val) > 0 and val[0]:
-            val = "{}\n".format(val[0])
+            val = f"{val[0]}\n"
         return val
 
     def get_lens(self, file):
         exposure_data = self.csv_data.get(file, "")
         if exposure_data and len(exposure_data) >= 5 and exposure_data[5]:
-            return "{}\n".format(exposure_data[5])
+            return f"{exposure_data[5]}\n"
         return ""
 
     def get_exposure_data(self, file):
@@ -96,15 +110,15 @@ class MinoltaDataMemoryCardToEXIF(object):
         exposure_data = []
         if data:
             if len(data) > 0 and data[0]:
-                exposure_data.append("1/{}s".format(data[0]))
+                exposure_data.append(f"1/{data[0]}s")
             if len(data) > 1 and data[1]:
-                exposure_data.append("f{}".format(data[1]))
+                exposure_data.append(f"f{data[1]}")
             if len(data) > 2 and data[2]:
-                exposure_data.append("{}".format(data[2]))
+                exposure_data.append(f"{data[2]}")
             if len(data) > 3 and data[3]:
-                exposure_data.append("{}mm".format(data[3]))
+                exposure_data.append(f"{data[3]}mm")
             if len(data) > 6 and data[6]:
-                exposure_data.append("program '{}'".format(data[6].upper()))
+                exposure_data.append(f"program '{data[6].upper()}'")
         if exposure_data:
             return "Minolta Data Card ({})\n".format(", ".join(exposure_data))
         else:

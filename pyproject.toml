@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mdmc2exif"
-version = "1.2.6"
+version = "1.2.7"
 description = "Simple script to add  ImageDescription EXIF tag to images, based on data store in csv file."
 readme = "README.md"
 requires-python = ">=3.0"

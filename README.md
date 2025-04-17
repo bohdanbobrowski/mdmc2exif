@@ -8,6 +8,10 @@ It was made to speedup upload process to my <a href="https://flickr.com/photos/b
 
     pip install git+https://github.com/bohdanbobrowski/mdmc2exif
 
+Or browse to folder where you have cloned this repository and:
+
+    pip install -e .
+
 ## Usage
 
 Run command in directory to create empty **data.csv** file if such does not exist:
